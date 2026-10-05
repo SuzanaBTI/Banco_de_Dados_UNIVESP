@@ -64,7 +64,7 @@ erDiagram
         string tema
         string area_conc
     }
-    ARTIGO-CIENTIFICO {
+    ARTIGO_CIENTIFICO {
         int id_artigo PK "Identificador Único"
         string titulo "Título do Artigo"
         string palavras_chave "Tags / Keywords"
@@ -78,7 +78,7 @@ erDiagram
 
     UNIVERSIDADE }|..|{ EVENTO_ACADEMICO : "promove"
     UNIVERSIDADE }o..|{ EVENTO_ACADEMICO : "participa"
-    EVENTO-ACADEMICO ||..|{ ARTIGO_CIENTIFICO : "recebe (1:N)"
+    EVENTO_ACADEMICO ||..|{ ARTIGO_CIENTIFICO : "recebe (1:N)"
     AUTOR }|..|{ ARTIGO_CIENTIFICO : "escreve (M:N)"
 ```
 

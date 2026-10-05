@@ -25,7 +25,7 @@ erDiagram
         string nome "Nome da Instituição"
         string sigla "Sigla da Instituição"
     }
-    EVENTO-ACADEMICO {
+    EVENTO_ACADEMICO {
         int id PK "Identificador Único"
         string nome "Nome do Evento"
         string sigla "Sigla do Evento"
@@ -56,7 +56,7 @@ erDiagram
         string nome
         string sigla
     }
-    EVENTO-ACADEMICO {
+    EVENTO_ACADEMICO {
         int id PK
         string nome
         string sigla

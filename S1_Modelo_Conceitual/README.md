@@ -33,8 +33,8 @@ erDiagram
         string tema "Tema Central"
         string area_conc "Área de Concentração"
     }
-    UNIVERSIDADE }|..|{ EVENTO-ACADEMICO : "promove (M:N)"
-    UNIVERSIDADE }o..|{ EVENTO-ACADEMICO : "participa (M:N)"
+    UNIVERSIDADE }|..|{ EVENTO_ACADEMICO : "promove (M:N)"
+    UNIVERSIDADE }o..|{ EVENTO_ACADEMICO : "participa (M:N)"
 ```
 
 ### Análise Técnica
@@ -76,10 +76,10 @@ erDiagram
         string email "E-mail de Contato"
     }
 
-    UNIVERSIDADE }|..|{ EVENTO-ACADEMICO : "promove"
-    UNIVERSIDADE }o..|{ EVENTO-ACADEMICO : "participa"
-    EVENTO-ACADEMICO ||..|{ ARTIGO-CIENTIFICO : "recebe (1:N)"
-    AUTOR }|..|{ ARTIGO-CIENTIFICO : "escreve (M:N)"
+    UNIVERSIDADE }|..|{ EVENTO_ACADEMICO : "promove"
+    UNIVERSIDADE }o..|{ EVENTO_ACADEMICO : "participa"
+    EVENTO-ACADEMICO ||..|{ ARTIGO_CIENTIFICO : "recebe (1:N)"
+    AUTOR }|..|{ ARTIGO_CIENTIFICO : "escreve (M:N)"
 ```
 
 ### Análise Técnica
@@ -103,7 +103,7 @@ A partir do mapeamento gráfico de infraestrutura física, a seguinte especifica
 
 ```mermaid
 erDiagram
-    EVENTO-ACADEMICO {
+    EVENTO_ACADEMICO {
         int id PK
     }
     PREDIO {
@@ -120,7 +120,7 @@ erDiagram
         string recursos "Multivalorado: [Lista de Itens]"
     }
 
-    EVENTO-ACADEMICO }|..|{ SALA : "Reserva (data_inicio, data_fim)"
+    EVENTO_ACADEMICO }|..|{ SALA : "Reserva (data_inicio, data_fim)"
     PREDIO ||..|{ SALA : "Possui"
 ```
 

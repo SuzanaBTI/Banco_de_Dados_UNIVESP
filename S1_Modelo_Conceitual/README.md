@@ -1,6 +1,6 @@
 # 📐 Semana 1: Modelagem Conceitual (DER)
 
-Este diretório centraliza os exercícios práticos desenvolvidos durante a primeira semana da disciplina de **Banco de Dados I**. O objetivo das atividades foi exercitar a abstração de cenários reais, extração de regras de negócio e mapeamento de Diagramas Entidade-Relacionamento (DER).
+Este diretório centraliza os exercícios práticos desenvolvidos durante a primeira semana da disciplina de **Banco de Dados I**. O objetivo das atividades foi exercitar a abstração de cenários reais, extração de regras de negócio e mapeamento de Diagramas Entidade_Relacionamento (DER).
 
 ---
 
@@ -38,7 +38,7 @@ erDiagram
 ```
 
 ### Análise Técnica
-* **Restrição de Participação Total:** A relação `promove` possui obrigatoriedade do lado do `EVENTO-ACADEMICO` `}|..|{`. Nenhum evento pode ser cadastrado sem ter ao menos uma universidade promotora responsável.
+* **Restrição de Participação Total:** A relação `promove` possui obrigatoriedade do lado do `EVENTO_ACADEMICO` `}|..|{`. Nenhum evento pode ser cadastrado sem ter ao menos uma universidade promotora responsável.
 
 ---
 

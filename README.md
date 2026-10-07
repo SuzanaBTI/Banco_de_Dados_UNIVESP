@@ -27,3 +27,15 @@ O conteúdo está dividido em módulos cronológicos que acompanham a ementa da 
 * **SQL:** MySQL 8.0 & DB-Fiddle
 * **NoSQL:** MongoDB v8.0 & MongoDB Atlas Cloud
 * **Documentação:** Markdown & Mermaid.js
+
+## 💻 Ambientes de Desenvolvimento e Infraestrutura
+
+Para a realização dos projetos e testes práticos desta disciplina, foram exploradas e configuradas duas abordagens de infraestrutura de banco de dados:
+
+1. **Ambiente Virtualizado Local (Linux/Ubuntu):**
+   * Configuração e provisionamento de Máquina Virtual (VM) utilizando o hipervisor **Oracle VirtualBox**.
+   * Importação e gerenciamento de imagem de appliance (`.ova`) executando sistema operacional **Ubuntu 64-bit** pré-configurado com **MySQL Server** e **MySQL Workbench**.
+   * Domínio sobre conceitos de alocação de recursos de hardware (memória RAM, CPU e armazenamento virtualizado) e interfaces de rede para servidores locais.
+
+2. **Ambiente em Nuvem (Cloud/DBaaS):**
+   * Migração de escopo para desenvolvimento ágil utilizando **DB-Fiddle** (MySQL 8.0) e implantação de um cluster ativo e escalável no **MongoDB Atlas Cloud** para o gerenciamento de coleções NoSQL.

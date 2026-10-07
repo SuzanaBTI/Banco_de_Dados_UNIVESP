@@ -1,2 +1,29 @@
-# Banco_de_Dados_UNIVESP
-Exercícios, desafios e projetos práticos desenvolvidos na disciplina de Banco de Dados da UNIVESP
+# 🗄️ Banco de Dados - UNIVESP (COM300)
+
+Repositório dedicado ao armazenamento de exercícios, desafios e projetos práticos desenvolvidos durante a disciplina de Banco de Dados da UNIVESP (Universidade Virtual do Estado de São Paulo).
+
+## 🚀 Estrutura do Repositório
+
+O conteúdo está dividido em módulos cronológicos que acompanham a ementa da disciplina:
+
+### 📐 [Módulo 1: Modelo Conceitual](./S1_Modelo_Conceitual)
+* **Foco:** Levantamento de requisitos, minimundos e mapeamento de regras de negócio.
+* **Prática:** Criação de Diagramas Entidade-Relacionamento (DER) utilizando sintaxe descritiva `Mermaid.js` diretamente na documentação.
+* **Exercícios:** Modelagem do cenário de Universidades e Eventos Acadêmicos.
+
+### 💻 [Módulo 2: Modelo Relacional](./S2_Modelo_Relacional)
+* **Foco:** Mapeamento lógico, chaves primárias compostas, chaves estrangeiras e integridade referencial.
+* **Prática:** Scripts estruturados em **MySQL 8.0** executados no ambiente online DB-Fiddle (comandos DDL e DML).
+* **Exercícios:** Implementação dos módulos de Submissão de Artigos/Autores e Gestão de Infraestrutura/Reservas de Salas utilizando múltiplos cruzamentos (`INNER JOIN`).
+
+### 🍃 [Módulo 3: NoSQL com MongoDB](./S3_NoSQL_MongoDB)
+* **Foco:** Bancos de dados não-relacionais orientados a documentos, flexibilidade de esquemas e escalabilidade.
+* **Prática:** Modelagem de documentos JSON e execução de esteiras de processamento via **Aggregation Framework** na nuvem pública do **MongoDB Atlas v8.0**.
+* **Exercícios:** Criação de pipelines de filtragem (`$match`) e projeção de campos específicos (`$project`).
+
+---
+
+## 🛠️ Tecnologias e Ferramentas Utilizadas
+* **SQL:** MySQL 8.0 & DB-Fiddle
+* **NoSQL:** MongoDB v8.0 & MongoDB Atlas Cloud
+* **Documentação:** Markdown & Mermaid.js

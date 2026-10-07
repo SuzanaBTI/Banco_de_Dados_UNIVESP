@@ -1,3 +1,31 @@
+# 📄 Exercício 2: Módulo de Submissão e Vínculo de Artigos
+
+Este módulo trata do fluxo de submissão de artigos científicos vinculados a eventos específicos e o gerenciamento de seus respectivos coautores, aplicando regras estritas de integridade relacional.
+
+## 🔍 Consulta Prática (Relatório de Autoria por Artigo)
+Para rastrear quais autores escreveram quais artigos e para qual evento eles foram destinados, utilizamos múltiplos cruzamentos de tabelas (`INNER JOIN`):
+
+```sql
+SELECT 
+    art.titulo AS Titulo_Artigo,
+    aut.nome AS Nome_Autor,
+    aut.titulo_academico AS Titulacao,
+    e.sigla AS Evento_Destino
+FROM artigo_autor aa
+INNER JOIN artigo_cientifico art ON aa.id_artigo = art.id_artigo
+INNER JOIN autor aut ON aa.cpf_autor = aut.cpf
+INNER JOIN evento_academico e ON art.id_evento = e.id_evento
+ORDER BY art.titulo ASC;
+```
+
+### 📋 Resultado da Execução:
+
+| Titulo_Artigo | Nome_Autor | Titulacao | Evento_Destino |
+| :--- | :--- | :--- | :--- |
+| Abordagens Modernas em Bancos NoSQL | Carlos Eduardo | Doutor | CBD |
+| Abordagens Modernas em Bancos NoSQL | Ana Maria Souza | Mestre | CBD |
+| Otimização de Índices no MySQL 8 | Carlos Eduardo | Doutor | CBD |
+
 # 📅 Exercício 3: Módulo de Infraestrutura e Reservas
 
 Este módulo trata do mapeamento lógico e implementação em banco de dados relacional para o gerenciamento de prédios, salas e reservas de eventos acadêmicos.

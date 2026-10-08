@@ -1,6 +1,5 @@
--- =========================================================================
 --  1. ESTRUTURAÇÃO DO BANCO DE DADOS (DDL)
--- =========================================================================
+
 DROP DATABASE IF EXISTS controle_vendas_db;
 CREATE DATABASE IF NOT EXISTS controle_vendas_db;
 USE controle_vendas_db;
@@ -49,9 +48,8 @@ CREATE TABLE itens_pedido (
     FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
 );
 
--- =========================================================================
 --  2. POPULANDO OS DADOS PARA TESTES (DML)
--- =========================================================================
+
 INSERT INTO categorias (nome_categoria) VALUES 
 ('Eletrônicos'), ('Escritório'), ('Livros');
 
@@ -81,9 +79,7 @@ INSERT INTO itens_pedido (id_pedido, id_produto, quantidade, preco_unitario) VAL
 (3, 4, 1, 85.00),   -- Pedido 3: 1 Livro
 (4, 1, 1, 4500.00); -- Pedido 4: 1 Notebook
 
--- =========================================================================
 --  3. CONSULTAS ESSENCIAIS PARA O DIA A DIA (DQL)
--- =========================================================================
 
 -- Exemplo 1: INNER JOIN completo agrupando e somando o total de cada pedido
 SELECT 
@@ -128,9 +124,7 @@ WHERE id_cliente IN (
     HAVING SUM(ip.quantidade * ip.preco_unitario) > 2000
 );
 
--- =========================================================================
 --  4. OPERAÇÕES DE MANUTENÇÃO SEGURA (UPDATE / DELETE)
--- =========================================================================
 
 -- Update condicional (Dando 10% de desconto para produtos de Escritório)
 UPDATE produtos 

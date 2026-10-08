@@ -1,0 +1,142 @@
+-- =========================================================================
+--  1. ESTRUTURAÇÃO DO BANCO DE DADOS (DDL)
+-- =========================================================================
+DROP DATABASE IF EXISTS controle_vendas_db;
+CREATE DATABASE IF NOT EXISTS controle_vendas_db;
+USE controle_vendas_db;
+
+-- Tabela de Categorias
+CREATE TABLE categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nome_categoria VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Tabela de Produtos (com FK e restrição de valor mínimo)
+CREATE TABLE produtos (
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    nome_produto VARCHAR(100) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL CHECK (preco >= 0),
+    estoque INT NOT NULL DEFAULT 0,
+    id_categoria INT,
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) ON DELETE SET NULL
+);
+
+-- Tabela de Clientes
+CREATE TABLE clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    estado CHAR(2) NOT NULL, -- Ex: 'SP', 'RJ'
+    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabela de Pedidos
+CREATE TABLE pedidos (
+    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT NOT NULL,
+    data_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status_pedido VARCHAR(20) DEFAULT 'Pendente',
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE
+);
+
+-- Tabela de Junção (Itens do Pedido) - Relacionamento N:N entre Pedidos e Produtos
+CREATE TABLE itens_pedido (
+    id_pedido INT,
+    id_produto INT,
+    quantidade INT NOT NULL CHECK (quantidade > 0),
+    preco_unitario DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (id_pedido, id_produto),
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido) ON DELETE CASCADE,
+    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);
+
+-- =========================================================================
+--  2. POPULANDO OS DADOS PARA TESTES (DML)
+-- =========================================================================
+INSERT INTO categorias (nome_categoria) VALUES 
+('Eletrônicos'), ('Escritório'), ('Livros');
+
+INSERT INTO produtos (nome_produto, preco, estoque, id_categoria) VALUES
+('Notebook Gamer', 4500.00, 15, 1),
+('Mouse Sem Fio', 120.00, 50, 1),
+('Cadeira Ergonômica', 1200.00, 8, 2),
+('Livro Clean Code', 85.00, 30, 3),
+('Teclado Mecânico', 350.00, 0, 1); -- Estoque zerado para testes
+
+INSERT INTO clientes (nome, estado) VALUES
+('Ana Souza', 'SP'),
+('Bruno Lima', 'RJ'),
+('Carlos Rocha', 'SP'),
+('Gabriela Costa', 'MG');
+
+INSERT INTO pedidos (id_cliente, status_pedido) VALUES
+(1, 'Concluído'),
+(2, 'Concluído'),
+(1, 'Pendente'),
+(3, 'Concluído');
+
+INSERT INTO itens_pedido (id_pedido, id_produto, quantidade, preco_unitario) VALUES
+(1, 1, 1, 4500.00), -- Pedido 1: 1 Notebook
+(1, 2, 2, 120.00),  -- Pedido 1: 2 Mouses
+(2, 3, 1, 1200.00), -- Pedido 2: 1 Cadeira
+(3, 4, 1, 85.00),   -- Pedido 3: 1 Livro
+(4, 1, 1, 4500.00); -- Pedido 4: 1 Notebook
+
+-- =========================================================================
+--  3. CONSULTAS ESSENCIAIS PARA O DIA A DIA (DQL)
+-- =========================================================================
+
+-- Exemplo 1: INNER JOIN completo agrupando e somando o total de cada pedido
+SELECT 
+    p.id_pedido,
+    c.nome AS nome_cliente,
+    p.data_pedido,
+    p.status_pedido,
+    SUM(ip.quantidade * ip.preco_unitario) AS valor_total_pedido
+FROM pedidos p
+INNER JOIN clientes c ON p.id_cliente = c.id_cliente
+INNER JOIN itens_pedido ip ON p.id_pedido = ip.id_pedido
+GROUP BY p.id_pedido
+ORDER BY valor_total_pedido DESC;
+
+-- Exemplo 2: LEFT JOIN para achar produtos que nunca foram vendidos (Teclado Mecânico)
+SELECT 
+    prod.nome_produto,
+    prod.estoque
+FROM produtos prod
+LEFT JOIN itens_pedido ip ON prod.id_produto = ip.id_produto
+WHERE ip.id_pedido IS NULL;
+
+-- Exemplo 3: Análise de Métricas por Categoria (Quantidade de Itens e Faturamento Geral)
+SELECT 
+    cat.nome_categoria,
+    COUNT(DISTINCT prod.id_produto) AS total_produtos_cadastrados,
+    IFNULL(SUM(ip.quantidade), 0) AS total_unidades_vendidas,
+    IFNULL(SUM(ip.quantidade * ip.preco_unitario), 0.00) AS faturamento_total
+FROM categorias cat
+LEFT JOIN produtos prod ON cat.id_categoria = prod.id_categoria
+LEFT JOIN itens_pedido ip ON prod.id_produto = ip.id_produto
+GROUP BY cat.id_categoria;
+
+-- Exemplo 4: Subquery / Filtro Avançado (Clientes que gastaram acima da média geral)
+SELECT nome, estado 
+FROM clientes 
+WHERE id_cliente IN (
+    SELECT id_cliente 
+    FROM pedidos p
+    INNER JOIN itens_pedido ip ON p.id_pedido = ip.id_pedido
+    GROUP BY p.id_cliente
+    HAVING SUM(ip.quantidade * ip.preco_unitario) > 2000
+);
+
+-- =========================================================================
+--  4. OPERAÇÕES DE MANUTENÇÃO SEGURA (UPDATE / DELETE)
+-- =========================================================================
+
+-- Update condicional (Dando 10% de desconto para produtos de Escritório)
+UPDATE produtos 
+SET preco = preco * 0.90 
+WHERE id_categoria = (SELECT id_categoria FROM categorias WHERE nome_categoria = 'Escritório');
+
+-- Delete seguro simulado (Removendo clientes sem pedidos associados)
+DELETE FROM clientes 
+WHERE id_cliente NOT IN (SELECT DISTINCT id_cliente FROM pedidos);

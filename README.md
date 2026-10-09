@@ -1,5 +1,9 @@
 # 🗄️ Banco de Dados - UNIVESP (COM300)
 
+![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+
 Repositório dedicado ao armazenamento de exercícios, desafios e projetos práticos desenvolvidos durante a disciplina de Banco de Dados da UNIVESP (Universidade Virtual do Estado de São Paulo).
 
 ## 🚀 Estrutura do Repositório

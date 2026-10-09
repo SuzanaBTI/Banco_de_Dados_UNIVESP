@@ -1,0 +1,5 @@
+# Força o GitHub a contabilizar o SQL nas estatísticas do projeto
+*.sql linguist-detectable=true
+
+# Mantém o JavaScript também contabilizado no gráfico
+*.js linguist-detectable=true
